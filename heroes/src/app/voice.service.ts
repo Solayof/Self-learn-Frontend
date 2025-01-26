@@ -55,6 +55,14 @@ export class VoiceService {
       catchError(this.handleError<Voice>('addVocie'))
     );
   }
+  deleteVoice(id: number):Observable<Voice> {
+    const url = `${this.voiceUrl}/${id}`;
+    return this.http.delete<Voice>(url, this.httpOption)
+    .pipe(
+      tap(_ => this.log(`deleted voice id=${id}`)),
+      catchError(this.handleError<Voice>(`deleteVoice`))
+    )
+  }
   
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
