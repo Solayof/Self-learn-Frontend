@@ -26,7 +26,7 @@ export class VoiceDetailComponent {
   getVoice(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.voiceService.getVoice(id)
-    .subscribe(voice => this.voice = voice);
+    .subscribe((voice: Voice) => this.voice = voice);
   }
 
   save() {
