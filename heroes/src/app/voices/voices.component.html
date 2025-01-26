@@ -10,7 +10,12 @@
 
 <h2>Voices List</h2>
 <br>
-
+<div>
+    <label for="new-voice">Voice Name: </label>
+    <input type="text" id="new-voice" #voiceName>
+    <br>
+    <button type="button" class="add-button" (click)="add(voiceName.value); voiceName.value=''">Add Voice</button>
+</div>
 
 <ul class="voices">
     <li *ngFor="let list of lists">
