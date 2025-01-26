@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { VoiceService } from '../voice.service';
+import { VoiceSearchComponent } from '../voice-search/voice-search.component';
 import { Voice } from '../voices';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgFor, RouterLink],
+  imports: [VoiceSearchComponent, NgFor, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
