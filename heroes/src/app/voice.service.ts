@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Voice } from './voices';
 import { VOICES } from './mock-voices';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, pipe, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { error } from 'console';
 
@@ -49,7 +49,6 @@ export class VoiceService {
     return this.http.post<Voice>(this.voiceUrl, voice, this.httpOption)
     .pipe(
       tap((newVoice: Voice) => {
-        console.log(newVoice);
         this.log(`add voice w/ id=${newVoice.id}`)
       }),
       catchError(this.handleError<Voice>('addVocie'))
@@ -63,11 +62,23 @@ export class VoiceService {
       catchError(this.handleError<Voice>(`deleteVoice`))
     )
   }
+
+  searchVoices(term: string): Observable<Voice[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Voice[]>(`${this.voiceUrl}/?name=${term}`)
+    pipe(
+      tap((x:Voice[]) => x.length ? 
+    this.log(`found voices matching "${term}"`):
+this.log(`no voice match "${term}"`)),
+catchError(this.handleError('search voices', []))
+    );
+  }
   
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.log(error);
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.statusText}`);
       return of(result as T);
     }
   }
