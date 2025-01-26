@@ -39,6 +39,10 @@ export class VoicesComponent {
     this.voiceServe.addVoice({name} as Voice)
     .subscribe( voice => this.lists.push(voice));
   }
+  delete(voice: Voice) {
+    this.lists = this.lists.filter(v => v !== voice);
+    this.voiceServe.deleteVoice(voice.id).subscribe()
+  }
 
 //   voices: Voice = {
 //     id: 1,
