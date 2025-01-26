@@ -33,6 +33,13 @@ export class VoicesComponent {
   ngOnInit(): void {
     this.getHeroes()
   }
+  add(name: string){
+    name = name.trim();
+    if (!name) { return}
+    this.voiceServe.addVoice({name} as Voice)
+    .subscribe( voice => this.lists.push(voice));
+  }
+
 //   voices: Voice = {
 //     id: 1,
 //     name: "Moses Solomon A"
