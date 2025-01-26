@@ -13,7 +13,7 @@ export class VoiceService {
 
   constructor(
     private http:HttpClient,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) { }
   getVoices(): Observable<Voice[]> {
     this.messageService.add("VoicesService: fetched heroes");
@@ -45,6 +45,17 @@ export class VoiceService {
     );
   }
 
+  addVoice(voice: Voice): Observable<Voice> {
+    return this.http.post<Voice>(this.voiceUrl, voice, this.httpOption)
+    .pipe(
+      tap((newVoice: Voice) => {
+        console.log(newVoice);
+        this.log(`add voice w/ id=${newVoice.id}`)
+      }),
+      catchError(this.handleError<Voice>('addVocie'))
+    );
+  }
+  
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(error);
