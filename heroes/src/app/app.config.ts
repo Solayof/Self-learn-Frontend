@@ -4,7 +4,7 @@ import { HttpClientInMemoryWebApiModule, } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 
 
 const fakeDb = HttpClientInMemoryWebApiModule.forRoot(
@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     importProvidersFrom(fakeDb)
   ]
 };
