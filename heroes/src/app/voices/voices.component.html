@@ -1,0 +1,22 @@
+<!-- <h2>{{voices.name | uppercase}} Details</h2> <br>
+<div><span>id: </span>{{voices.id}}</div><br>
+<div><span>name: </span>{{voices.name}}</div><br><br>
+
+<div>
+    <label for="name">Voice Name: </label>
+    <input type="text" id="name" [(ngModel)]="voices.name" placeholder="voice name"/>
+</div> <br> -->
+
+
+<h2>Voices List</h2>
+<br>
+
+
+<ul class="voices">
+    <li *ngFor="let list of lists">
+            <a routerLink="/detail/{{list.id}}" [class.selected]="list === selecteVoice">
+                <span class="badge">{{list.id}} </span>{{list.name}}
+            </a>
+    </li>
+</ul>
+<app-voice-detail [voice]="selecteVoice"></app-voice-detail>

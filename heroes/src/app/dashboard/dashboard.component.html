@@ -1,0 +1,6 @@
+<h2>Top Voices</h2>
+<div class="voices-menu">
+    <a *ngFor="let voice of voices" routerLink="/detail/{{voice.id}}">
+        {{voice.name}}
+    </a>
+</div>
